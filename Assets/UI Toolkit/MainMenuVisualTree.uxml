@@ -1,0 +1,19 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/MainMenuStyle.uss?fileID=7433441132597879392&amp;guid=e07d28f7098ba7a4fbacf19907d08ee2&amp;type=3#MainMenuStyle" />
+    <ui:VisualElement name="container" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/placeholder.jpg?fileID=21300000&amp;guid=f378bdac1dfec1545b8a6046139d5099&amp;type=3#placeholder&quot;);">
+        <ui:VisualElement name="Izquierda" style="flex-grow: 1; align-items: flex-end; align-self: flex-end; flex-direction: column; justify-content: flex-end; height: 316px; width: 35%;">
+            <ui:VisualElement name="Titulo" style="flex-grow: 1; align-items: flex-end; align-self: center;">
+                <ui:Label tabindex="-1" text="The Diary" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Header" class="header" style="align-items: auto; justify-content: center; white-space: nowrap; -unity-text-align: middle-center; text-overflow: ellipsis; align-self: center; margin-top: 75px; width: auto;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Buttons" style="flex-grow: 1; align-items: stretch; justify-content: space-around; align-self: center;">
+                <ui:Button text="New Game" parse-escape-sequences="true" display-tooltip-when-elided="true" name="NewGameButton" class="button" />
+                <ui:Button text="Settings" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Settings" class="button" />
+                <ui:Button text="Credits" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Credits" class="button" />
+                <ui:Button text="Exit" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Exit" class="button" />
+            </ui:VisualElement>
+            <ui:VisualElement name="footer" style="flex-grow: 1; align-items: stretch; justify-content: flex-end; align-self: flex-end;">
+                <ui:Label tabindex="-1" text="Hortin Guille Sara" parse-escape-sequences="true" display-tooltip-when-elided="true" style="align-items: flex-end; justify-content: space-around;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

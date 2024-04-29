@@ -1,0 +1,27 @@
+.header {
+    font-size: 50px;
+    -unity-text-align: upper-center;
+    color: rgb(243, 131, 34);
+}
+
+.button {
+    font-size: 20px;
+    width: 250px;
+    height: 60px;
+    border-top-left-radius: 11px;
+    border-top-right-radius: 11px;
+    border-bottom-right-radius: 11px;
+    border-bottom-left-radius: 11px;
+    align-self: center;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in;
+}
+
+.button:hover {
+    background-color: rgb(67, 80, 115);
+    -unity-background-image-tint-color: rgb(67, 80, 115);
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+}
