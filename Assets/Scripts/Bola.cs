@@ -35,7 +35,6 @@ public class DispararBola : MonoBehaviour
                 {
                     if (hit.collider.gameObject == bolaLanzada)
                     {
-                        Debug.Log("Estoy mirando la bola lanzada.");
                         Destroy(bolaLanzada); // Destruir la bola que ha sido lanzada
                         bolaLanzada = null; // Establecer la referencia a la bola lanzada como nula
                         renderer.enabled = true;
