@@ -8,6 +8,8 @@ TagManager:
   - PuertaRoja
   - PuertaAzul
   - Bola
+  - Room
+  - Enemy
   layers:
   - Default
   - TransparentFX

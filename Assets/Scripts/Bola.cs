@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class DispararBola : MonoBehaviour
 {
+    [SerializeField] private AudioClip lanzar;
+     
     public GameObject bolaPrefab;
     public Camera camara;
     public MeshRenderer renderer;
@@ -55,6 +57,8 @@ public class DispararBola : MonoBehaviour
         // Calcular la dirección del disparo hacia el punto en el centro de la pantalla
         Vector3 direccionDisparo = rayo.direction;
 
+        //Reproducir sonido
+        AudioManager.Instance.PlaySoudn(lanzar);
         // Instanciar la bola
         bolaLanzada = Instantiate(bolaPrefab, transform.position, Quaternion.identity);
 
