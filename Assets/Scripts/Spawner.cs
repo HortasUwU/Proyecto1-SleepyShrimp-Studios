@@ -2,34 +2,34 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private int health;
-    private RoomArea roomArea;
+    [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private Transform[] spawnPoints;
 
     private void Start()
     {
-        roomArea = GetComponentInParent<RoomArea>(); // Obtener la referencia al script RoomArea
-    }
-
-    private void Update()
-    {
-        if (health <= 0)
+        for (int i = 0; i < spawnPoints.Length; i++)
         {
-            // Si la salud es igual o menor a cero, eliminar el enemigo y destruir el objeto
-            roomArea.EliminarEnemigo(this); // Pasar la referencia al componente Spawner en lugar del GameObject
-            Destroy(gameObject);
+            SpawnEnemy();
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void SpawnEnemy()
     {
-        if (collision.gameObject.CompareTag("Bola"))
+        if (enemyPrefab != null)
         {
-            Hurt(); // Llamar al método Hurt si el enemigo colisiona con una "Bola"
+            if (spawnPoints.Length > 0)
+            {
+                Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+                GameObject enemyInstance = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation, transform);
+            }
+            else
+            {
+                Debug.LogError("No se han asignado puntos de aparición.");
+            }
         }
-    }
-
-    private void Hurt()
-    {
-        health--; // Disminuir la salud del enemigo
+        else
+        {
+            Debug.LogError("No se ha asignado el enemigo.");
+        }
     }
 }

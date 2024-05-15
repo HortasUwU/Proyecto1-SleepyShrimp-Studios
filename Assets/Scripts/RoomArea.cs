@@ -17,6 +17,7 @@ public class RoomArea : MonoBehaviour
         {
             enemigo.gameObject.SetActive(false); // Activar el GameObject del enemigo
         }
+
     }
 
     private void OnTriggerEnter(Collider other)
