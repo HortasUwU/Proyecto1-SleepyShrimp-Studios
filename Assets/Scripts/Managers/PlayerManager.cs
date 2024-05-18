@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using System.Collections;
 using static GameManager;
+using Unity.VisualScripting;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -18,8 +19,6 @@ public class PlayerManager : MonoBehaviour
     // Variables para el efecto de sacudida de pantalla
     public float shakeIntensity = 0.1f;
     public float shakeDuration = 0.5f;
-    [SerializeField] GameObject playerSpawner;
-
 
 
     void Awake()
@@ -49,6 +48,7 @@ void Start()
 
     void OnCollisionEnter(Collision collision)
     {
+
         // Verificar si ha pasado suficiente tiempo desde el último daño
         if (Time.time - lastDamageTime >= damageInterval)
         {
@@ -70,7 +70,10 @@ void Start()
                 // Check if player health has reached zero
                 if (health <= 0)
                 {
+                    shakeDuration = 0;
                     GameManager.instance.EndGame();
+                    shakeDuration = 0.5f;
+
                 }
             }
         }
@@ -79,8 +82,8 @@ void Start()
     // Función para sacudir la pantalla
     private IEnumerator ShakeScreen()
     {
-        Vector3 originalPosition = Camera.main.transform.localPosition;
         float elapsedTime = 0f;
+        Vector3 originalPosition = Camera.main.transform.localPosition;
 
         while (elapsedTime < shakeDuration)
         {
@@ -110,28 +113,7 @@ void Start()
 
     public void spawnear()
     {
-        // Restablece la salud del jugador a 3
         health = 3;
-
-        // Actualiza el texto de la salud
         UpdateHealthText();
-
-        // Busca el objeto de aparición del jugador por su etiqueta
-        GameObject playerSpawner = GameObject.FindWithTag("PlayerSpawner");
-
-        // Verificar si se encontró el objeto de aparición del jugador
-        if (playerSpawner != null)
-        {
-            Debug.LogError(playerSpawner.transform.position);
-            gameObject.transform.position = playerSpawner.transform.position;
-            gameObject.transform.rotation = Quaternion.identity; 
-            Debug.LogError("funciona");
-
-        }
-        else
-        {
-            Debug.LogError("No se encontró un objeto con la etiqueta 'PlayerSpawner'.");
-        }
     }
-
 }

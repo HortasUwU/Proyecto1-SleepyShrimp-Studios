@@ -8,20 +8,22 @@ public class RoomFSM : MonoBehaviour
     {
         Open,
         Closed,
-        Superada
+        Superada,
+        Empty
     }
 
-    public RoomState currentState; 
+    public RoomState currentState;
+
     [SerializeField] private GameObject spawner;
-    private Bloqueo bloqueo; 
-    public EnemyFSM[] enemigos; // Array para los enemigos
+    private Bloqueo bloqueo;
+    private EnemyFSM[] enemigos; // Array para los enemigos
+    private bool enemigosObtenidos = false; // Bandera para verificar si los enemigos han sido obtenidos
+    private bool flagSuperada = true;
 
     void Start()
     {
         bloqueo = GetComponentInChildren<Bloqueo>();
-        enemigos = GetComponentsInChildren<EnemyFSM>();
-        spawner.SetActive(false);
-
+        spawner.SetActive(true);
     }
 
     private void Update()
@@ -30,19 +32,31 @@ public class RoomFSM : MonoBehaviour
         {
             case RoomState.Open:
                 bloqueo.Abrir();
+                spawner.SetActive(false);
                 break;
             case RoomState.Closed:
                 bloqueo.Cerrar();
                 spawner.SetActive(true);
-
-                if (TodosEnemigosEliminados())
+                if (!enemigosObtenidos)
+                {
+                    ObtenerEnemigos();
+                }
+                if (enemigos != null && TodosEnemigosEliminados())
                 {
                     currentState = RoomState.Superada;
                 }
+                if (!TodosEnemigosEliminados() && GameManager.instance.currentState == GameManager.GameState.GameOver)
+                {
+                    ResetearEstado();
+                }
                 break;
             case RoomState.Superada:
-                bloqueo.Abrir();
-                GameManager.instance.SaveGameState();
+                if (flagSuperada == true)
+                {
+                    bloqueo.Abrir();
+                    GameManager.instance.SaveGameState();
+                    flagSuperada = false;
+                }
                 break;
         }
     }
@@ -62,6 +76,12 @@ public class RoomFSM : MonoBehaviour
         }
     }
 
+    private void ObtenerEnemigos()
+    {
+        enemigos = GetComponentsInChildren<EnemyFSM>();
+        enemigosObtenidos = true;
+    }
+
     private bool TodosEnemigosEliminados()
     {
         foreach (EnemyFSM enemigo in enemigos)
@@ -71,6 +91,15 @@ public class RoomFSM : MonoBehaviour
                 return false;
             }
         }
-        return true; // los enemigos han sido eliminados
+        return true;
+    }
+
+    public void ResetearEstado()
+    {
+        if (!TodosEnemigosEliminados())
+        {
+            currentState = RoomState.Open;
+            enemigosObtenidos = false;
+        }
     }
 }

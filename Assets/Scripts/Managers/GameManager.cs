@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,7 +16,8 @@ public class GameManager : MonoBehaviour
     }
 
     public GameState currentState;
-    public List<RoomFSM> allRooms;
+    public RoomFSM[] allRooms;
+
     void Awake()
     {
         if (instance == null)
@@ -28,12 +30,14 @@ public class GameManager : MonoBehaviour
         }
 
         DontDestroyOnLoad(gameObject);
+
     }
 
     void Start()
     {
         currentState = GameState.Playing;
         UIManager.instance.pauseMenu.SetActive(false);
+        allRooms = FindObjectsOfType<RoomFSM>();
     }
 
     void Update()
@@ -103,11 +107,9 @@ public class GameManager : MonoBehaviour
 
     public void Retry()
     {
-        UIManager.instance.deadMenu.SetActive(false);
         currentState = GameState.Playing;
-        //LoadGameState();
         PlayerManager.instance.spawnear();
-
+        UIManager.instance.deadMenu.SetActive(false);
     }
 
     public void SaveGameState()
@@ -115,6 +117,8 @@ public class GameManager : MonoBehaviour
         // Guarda el estado de todas las habitaciones
         foreach (RoomFSM room in allRooms)
         {
+            Debug.Log(room.gameObject.name + " Ha sido guardada");
+
             PlayerPrefs.SetInt(room.gameObject.name + "_RoomState", (int)room.currentState);
         }
     }
@@ -124,6 +128,7 @@ public class GameManager : MonoBehaviour
         // Carga el estado de todas las habitaciones
         foreach (RoomFSM room in allRooms)
         {
+            Debug.Log(room.gameObject.name+" Ha sido cargada");
             if (PlayerPrefs.HasKey(room.gameObject.name + "_RoomState"))
             {
                 int savedState = PlayerPrefs.GetInt(room.gameObject.name + "_RoomState");

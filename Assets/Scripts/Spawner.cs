@@ -5,31 +5,40 @@ public class Spawner : MonoBehaviour
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private Transform[] spawnPoints;
 
+    private bool[] spawnPointUsed;
+
     private void Start()
     {
+        spawnPointUsed = new bool[spawnPoints.Length];
+
         for (int i = 0; i < spawnPoints.Length; i++)
         {
-            SpawnEnemy();
+            SpawnEnemy(i); 
         }
     }
 
-    private void SpawnEnemy()
+    private void SpawnEnemy(int index)
     {
-        if (enemyPrefab != null)
+        if (enemyPrefab != null && spawnPoints.Length > 0)
         {
-            if (spawnPoints.Length > 0)
+            if (!spawnPointUsed[index])
             {
-                Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-                GameObject enemyInstance = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation, transform);
+                spawnPointUsed[index] = true;
+
+                Transform spawnPoint = spawnPoints[index];
+
+                GameObject enemyInstance = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+
+                enemyInstance.transform.parent = transform;
             }
             else
             {
-                Debug.LogError("No se han asignado puntos de aparición.");
+                Debug.LogWarning("Spawn point at index " + index + " has already been used.");
             }
         }
         else
         {
-            Debug.LogError("No se ha asignado el enemigo.");
+            Debug.LogError("Enemy prefab is not assigned or there are no spawn points available.");
         }
     }
 }
