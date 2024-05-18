@@ -54,7 +54,7 @@ public class DispararBola : MonoBehaviour
         Vector3 direccionDisparo = rayo.direction;
 
         //Reproducir sonido
-        AudioManager.Instance.PlaySoudn(lanzar);
+        AudioManager.Instance.PlaySound(lanzar);
 
         // Instanciar la bola
         bolaLanzada = Instantiate(bolaPrefab, transform.position, Quaternion.identity);

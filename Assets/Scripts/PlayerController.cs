@@ -63,8 +63,8 @@ public class PlayerController : MonoBehaviour
 
     private void Look()
     {
-        rotationInput.x = Input.GetAxis("Mouse X") * rotationSensibility * Time.deltaTime;
-        rotationInput.y = Input.GetAxis("Mouse Y") * rotationSensibility * Time.deltaTime;
+        rotationInput.x = Input.GetAxisRaw("Mouse X") * rotationSensibility * Time.deltaTime;
+        rotationInput.y = Input.GetAxisRaw("Mouse Y") * rotationSensibility * Time.deltaTime;
 
         cameraVerticalAngle += rotationInput.y;
         cameraVerticalAngle = Mathf.Clamp(cameraVerticalAngle, -70f, 70f);
