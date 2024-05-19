@@ -12,11 +12,13 @@ public class GameManager : MonoBehaviour
         Playing,
         Paused,
         GameOver,
-        Interactuating
+        Interactuating,
+        SceneChanger
     }
 
     public GameState currentState;
     public RoomFSM[] allRooms;
+    public bool hasKey;
 
     void Awake()
     {

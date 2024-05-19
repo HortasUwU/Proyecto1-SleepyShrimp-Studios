@@ -45,9 +45,8 @@ public class UIManager : MonoBehaviour
     public void Resume()
     {
         pauseMenu.SetActive(false);
-
+        settingsMenu.SetActive(false);
         health.SetActive(true);
-        ToggleMenuDeOpciones();
     }
 
     public void DeadMenu()
@@ -60,8 +59,11 @@ public class UIManager : MonoBehaviour
 
     public void ToggleMenuDeOpciones()
     {
-        bool isActive = settingsMenu.activeSelf;
-        settingsMenu.SetActive(!isActive);
+        if (pauseMenu.activeSelf)
+        {
+            bool isActive = settingsMenu.activeSelf;
+            settingsMenu.SetActive(!isActive);
+        }
     }
 
     public void SaveOptions()

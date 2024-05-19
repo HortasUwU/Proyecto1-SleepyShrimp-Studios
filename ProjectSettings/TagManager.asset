@@ -14,6 +14,7 @@ TagManager:
   - GameArea
   - PlayerSpawner
   - SpawnEnemigo
+  - Key
   layers:
   - Default
   - TransparentFX
